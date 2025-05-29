@@ -22,7 +22,19 @@ function infinite_curry(a) {
     }
 }
 
+function curry_infinite_params(...a) {
+    return function(...b) {
+        if (b?.length) {
+            return curry_infinite_params(...a, ...b)
+        } else {
+            return a.reduce((i,j) => i+j, 0)
+        }
+    }
+}
+
 console.log(infinite_curry(1)(2)(3)(4)())
+
+console.log(curry_infinite_params(1,2,3)(4)(5,6)())
 
  const curriedJoin = curry(join)
  console.log(curriedJoin(1, 2, 3)) // '1_2_3'
